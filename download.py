@@ -97,20 +97,21 @@ for project_name in os.listdir(projects_dirname):
 print(mapped)
 compiled = []
 
-for project, dependencies in mapped:
-    if project in compiled:
-        continue
-    
-    depends = False
+while len(compiled) < len(mapped):
+    for project, dependencies in mapped:
+        if project in compiled:
+            continue
+        
+        depends = False
 
-    for project2 in mapped:
-        if (project2 is not project) and (project2 not in compiled) and (project2 in dependencies):
-            depends = True
-            break
+        for project2 in mapped:
+            if (project2 not in compiled) and (project2 in dependencies):
+                depends = True
+                break
 
-    if not depends:
-        compiled.insert(project)
-        #compilar o projeto
+        if not depends:
+            compiled.insert(project)
+            #compilar o projeto
 
 
 print(mapped)
